@@ -1,0 +1,25 @@
+package com.assignment1.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.service.interfaces.GroupbySortByMethods;
+
+@RestController
+public class GroupBySortByCotroller {
+	
+	@Autowired
+	private GroupbySortByMethods groupbySortByMethods;
+	
+	public ResponseEntity<?> saveRecord(@PathVariable String dataset,
+			@RequestBody SaveRecordRequest recordRequest){
+		
+		return new ResponseEntity<>(null,HttpStatus.OK);
+	}
+
+}

@@ -1,0 +1,37 @@
+package com.assignment1.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+import com.assignment1.service.interfaces.GroupbySortByMethods;
+
+@RestController
+@RequestMapping("/api/dataset")
+public class GroupBySortByCotroller {
+	
+	@Autowired
+	private GroupbySortByMethods groupbySortByMethods;
+	
+	@PostMapping("/{dataset}/record")
+	public ResponseEntity<?> saveRecord(@PathVariable String dataset,
+			@RequestBody SaveRecordRequest recordRequest){
+		
+		try {
+			
+			SavedResponseDto savedResponseDto=groupbySortByMethods.saveRecord(dataset, recordRequest);
+			return new ResponseEntity<>(savedResponseDto,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+}

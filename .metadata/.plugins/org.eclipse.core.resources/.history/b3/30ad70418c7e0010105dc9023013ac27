@@ -1,0 +1,17 @@
+package com.assignment1.service.interfaces;
+
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import com.assignment1.dto.GroupedRecords;
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+
+public interface GroupbySortByMethods {
+
+    public SavedResponseDto saveRecord(String dataset, SaveRecordRequest request) throws NoResourceFoundException;
+    public GroupByResponseDto getGroupedRecords(String datasetName,String groupByParam);
+}

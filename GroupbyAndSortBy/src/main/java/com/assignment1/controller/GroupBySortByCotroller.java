@@ -1,0 +1,81 @@
+package com.assignment1.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.assignment1.dto.GroupByResponseDto;
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+import com.assignment1.dto.SortedRecordDto;
+import com.assignment1.service.interfaces.GroupbySortByMethods;
+
+@RestController
+@RequestMapping("/api/dataset")
+public class GroupBySortByCotroller {
+	
+	@Autowired
+	private GroupbySortByMethods groupbySortByMethods;
+	
+	@PostMapping("/{dataset}/record")
+	public ResponseEntity<?> saveRecord(@PathVariable String dataset,
+			@RequestBody SaveRecordRequest recordRequest){
+		
+	try {
+
+		if(dataset == null || recordRequest == null || dataset.isBlank() || "null".equals(dataset)){
+			return ResponseEntity.badRequest()
+					.body("Invalid input");
+		}
+			
+		SavedResponseDto savedResponseDto=groupbySortByMethods.saveRecord(dataset, recordRequest);
+		return new ResponseEntity<>(savedResponseDto,HttpStatus.OK);
+			
+		
+		}catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@GetMapping("/{dataset}/query")
+	public ResponseEntity<?> getRecords(@PathVariable String dataset,
+	        @RequestParam(required = false) String groupBy,
+	        @RequestParam(required = false) String sortBy,
+	        @RequestParam(defaultValue = "asc") String orderBy) {
+
+	    
+	    try {
+	        if (groupBy != null && sortBy != null) {
+	            return ResponseEntity.badRequest()
+	                    .body("Cannot use both groupBy and sortBy parameters together");
+	        }
+	        
+	        if (groupBy != null) {
+
+	            GroupByResponseDto result = groupbySortByMethods.getGroupedRecords(dataset, groupBy);
+	            return ResponseEntity.ok(result);
+	        } else if (sortBy != null) {
+
+	            SortedRecordDto result = groupbySortByMethods.getSortedRecords(dataset, sortBy, orderBy);
+	            return ResponseEntity.ok(result);
+	        } else {
+	            return ResponseEntity.badRequest()
+	                    .body("Either groupBy or sortBy parameter is required");
+	        }
+	        
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body(e.getMessage());
+	    }
+	}
+
+}

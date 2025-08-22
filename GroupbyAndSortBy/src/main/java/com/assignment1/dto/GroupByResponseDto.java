@@ -1,0 +1,23 @@
+package com.assignment1.dto;
+
+import java.util.List;
+import java.util.Map;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class GroupByResponseDto {
+	
+	private Map<String,List<GroupedRecords>> groupedRecords;
+	
+	
+
+	
+}

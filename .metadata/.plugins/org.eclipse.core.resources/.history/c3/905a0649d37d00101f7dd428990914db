@@ -1,0 +1,5 @@
+package com.assignment1.model;
+
+public enum ResponseMessage {
+
+}

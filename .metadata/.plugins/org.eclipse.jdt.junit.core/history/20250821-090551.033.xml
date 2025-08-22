@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="GroupbySortByMethodsImplTest" project="GroupbyAndSortBy" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="com.assignment1.service.GroupbySortByMethodsImplTest" time="0.654" displayname="GroupbySortByMethodsImplTest" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.service.GroupbySortByMethodsImplTest]">
+    <testcase name="saveRecordTest_WithoutDataset" classname="com.assignment1.service.GroupbySortByMethodsImplTest" time="0.409" displayname="saveRecordTest_WithoutDataset()" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.service.GroupbySortByMethodsImplTest]/[method:saveRecordTest_WithoutDataset()]"/>
+    <testcase name="saveRecordTest" classname="com.assignment1.service.GroupbySortByMethodsImplTest" time="0.24" displayname="saveRecordTest()" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.service.GroupbySortByMethodsImplTest]/[method:saveRecordTest()]"/>
+    <testcase name="saveRecordTest_WithEmptyDataset" classname="com.assignment1.service.GroupbySortByMethodsImplTest" time="0.003" displayname="saveRecordTest_WithEmptyDataset()" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.service.GroupbySortByMethodsImplTest]/[method:saveRecordTest_WithEmptyDataset()]"/>
+  </testsuite>
+</testrun>

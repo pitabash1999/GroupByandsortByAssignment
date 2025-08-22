@@ -1,0 +1,31 @@
+package com.assignment1.service;
+
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+import com.assignment1.repository.DatasetRepository;
+import com.assignment1.repository.RecordRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class GroupbySortByMethodsImplTest {
+	
+	@Autowired
+	private GroupbySortByMethodsImpl method1;
+
+
+    @Test
+    public void saveRecordTest(){
+        
+        SaveRecordRequest saveRecordRequest=new SaveRecordRequest();
+        saveRecordRequest.setName("Pitabash");
+        saveRecordRequest.setAge(20);
+        saveRecordRequest.setDepartment("Engineering");
+        SavedResponseDto responseDto=method1.saveRecord("employee_dataset",saveRecordRequest);
+        assertNull(responseDto);
+    }
+
+}

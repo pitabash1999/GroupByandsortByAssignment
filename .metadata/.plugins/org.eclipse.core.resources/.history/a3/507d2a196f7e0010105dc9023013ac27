@@ -1,0 +1,9 @@
+package com.assignment1.service.interfaces;
+
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+
+public interface GroupbySortByMethods {
+
+    public SavedResponseDto saveRecord(String dataset, SaveRecordRequest request);
+}

@@ -1,0 +1,27 @@
+package com.assignment1.repository;
+
+
+import com.assignment1.model.Dataset;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DatasetRepository extends JpaRepository<Dataset,Long> {
+	
+	Optional<Dataset> findBydatasetName(String datasetName);
+	
+	@Query(value = "SELECT r.department FROM datasets d JOIN records r ON d.id = r.dataset_id WHERE d.dataset_name = ?1", nativeQuery = true)
+	List<String> findByDepartmentDatasetName(@Param("name") String name);
+	
+	@Query(value = "SELECT r.name FROM datasets d JOIN records r ON d.id = r.dataset_id WHERE d.dataset_name = ?1", nativeQuery = true)
+	List<String> findBynamesDatasetName(@Param("name") String name);
+	
+	@Query(value = "SELECT r.age FROM datasets d JOIN records r ON d.id = r.dataset_id WHERE d.dataset_name = ?1", nativeQuery = true)
+	List<Integer> findByAgeDatasetName(@Param("name") String name);
+}

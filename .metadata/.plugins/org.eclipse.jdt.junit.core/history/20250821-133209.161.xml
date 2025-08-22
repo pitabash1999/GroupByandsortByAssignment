@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="GroupBySortByCotrollerTest" project="GroupbyAndSortBy" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.assignment1.controller.GroupBySortByCotrollerTest" time="0.975" displayname="GroupBySortByCotrollerTest" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.controller.GroupBySortByCotrollerTest]">
+    <testcase name="saveRecordTest" classname="com.assignment1.controller.GroupBySortByCotrollerTest" time="0.952" displayname="saveRecordTest()" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.controller.GroupBySortByCotrollerTest]/[method:saveRecordTest()]"/>
+    <testcase name="saveRecordTest_emptyDataset" classname="com.assignment1.controller.GroupBySortByCotrollerTest" time="0.022" displayname="saveRecordTest_emptyDataset()" uniqueid="[engine:junit-jupiter]/[class:com.assignment1.controller.GroupBySortByCotrollerTest]/[method:saveRecordTest_emptyDataset()]"/>
+  </testsuite>
+</testrun>

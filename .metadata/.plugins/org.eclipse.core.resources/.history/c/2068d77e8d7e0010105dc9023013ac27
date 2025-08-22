@@ -1,0 +1,19 @@
+package com.assignment1.dto;
+
+import java.util.List;
+import java.util.Map;
+
+
+
+
+
+public class GroupByResponseDto {
+	
+	private Map<String,List<GroupedRecords>> groupedRecords;
+	
+	public GroupByResponseDto(Map<String, List<GroupedRecords>> result) {
+		this.groupedRecords=result;
+	}
+
+	
+}

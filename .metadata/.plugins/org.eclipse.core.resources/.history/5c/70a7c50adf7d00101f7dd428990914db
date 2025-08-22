@@ -1,0 +1,66 @@
+package com.assignment1.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.assignment1.dto.SaveRecordRequest;
+import com.assignment1.dto.SavedResponseDto;
+import com.assignment1.model.Dataset;
+import com.assignment1.model.Record;
+import com.assignment1.model.ResponseMessage;
+import com.assignment1.repository.DatasetRepository;
+import com.assignment1.repository.RecordRepository;
+import com.assignment1.service.interfaces.GroupbySortByMethods;
+
+
+
+@Service
+public class GroupbySortByMethodsImpl implements GroupbySortByMethods {
+	
+	@Autowired
+	private DatasetRepository datasetRepository;
+	@Autowired
+	private RecordRepository recordRepository;
+	
+	
+    @Override
+    public SavedResponseDto saveRecord(String dataset, SaveRecordRequest request) {
+    	
+    	Optional<Dataset> existingDataset=datasetRepository.findBydatasetName(dataset);
+    	
+    	if(existingDataset.isPresent()) {
+    		Record record=new Record();
+    		record.setName(request.getName());
+    		record.setAge(request.getAge());
+    		record.setDepartment(request.getDepartment());
+    		record.setDataset(existingDataset.get();
+    		Record savedRecord=recordRepository.save(record);
+    		
+    		return responseDto(savedRecord.getId(), dataset, ResponseMessage.SUCCESS.getMessage());
+    	}else {
+    		Dataset newDataset=new Dataset();
+    		newDataset.setDatasetName(dataset);
+    		Dataset savedDataset=datasetRepository.save(newDataset);
+    		Record record=new Record();
+    		record.setName(request.getName());
+    		record.setAge(request.getAge());
+    		record.setDepartment(request.getDepartment());;
+    		record.setDataset(savedDataset);
+    		Record savedRecord=recordRepository.save(record);
+    		
+    		return responseDto(savedRecord.getId(), dataset, ResponseMessage.SUCCESS.getMessage());
+    	}
+    }
+    
+    private SavedResponseDto responseDto(Long recordId,String datasetName,String message) {
+    	
+    	return SavedResponseDto.builder()
+    			.message(message)
+    			.dataset(datasetName)
+    			.recordId(recordId)
+    			.build();
+    	
+    }
+}

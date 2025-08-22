@@ -1,0 +1,66 @@
+package com.assignment1.controller;
+
+
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.http.MediaType;
+import com.assignment1.dto.SaveRecordRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class GroupBySortByCotrollerTest {
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
+	
+	
+	@Test
+	public void saveRecordTest() throws JsonProcessingException, Exception{
+		
+		String dataSetName="employee";
+		SaveRecordRequest svRecordRequest=new SaveRecordRequest();
+		svRecordRequest.setName("Pitabash");
+		svRecordRequest.setAge(29);
+		svRecordRequest.setDepartment("Engieener");
+		
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/api/dataset/"+dataSetName+"/record")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(svRecordRequest))
+				)
+		.andExpect(MockMvcResultMatchers.status().isOk());
+		
+	}
+	
+	@Test
+	public void saveRecordTest_emptyDataset() throws JsonProcessingException, Exception{
+		
+		String dataSetName=null;// dataset=""
+		SaveRecordRequest svRecordRequest=new SaveRecordRequest();
+		svRecordRequest.setName("Pitabash");
+		svRecordRequest.setAge(29);
+		svRecordRequest.setDepartment("Engieener");
+		
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/api/dataset/"+dataSetName+"/record")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(null))
+				)
+		.andExpect(MockMvcResultMatchers.status().isNotFound());
+		
+	}
+
+
+}

@@ -1,0 +1,10 @@
+package com.assignment1.exceptions;
+
+public class EmptyDataSetException extends RuntimeException{
+	
+	public EmptyDataSetException(String message) {
+		
+		super(message);
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.assignment1.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+public class Record {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private Integer age;
+    private String deparment;
+    @ManyToOne(targetEntity = Dataset.class)
+    private Long datasetId;
+
+}

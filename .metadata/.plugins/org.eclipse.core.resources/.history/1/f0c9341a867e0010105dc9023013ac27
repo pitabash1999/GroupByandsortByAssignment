@@ -1,0 +1,20 @@
+package com.assignment1.repository;
+
+
+import com.assignment1.model.Dataset;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DatasetRepository extends JpaRepository<Dataset,Long> {
+	
+	Optional<Dataset> findBydatasetName(String datasetName);
+	
+	@Query("SELECT r.department FROM DATASETS d INNER JOIN RECORD r ON d.id=r.dataset_id WHERE d.datasetName=:name")
+	List<String> findByDatasetId(String name);
+}

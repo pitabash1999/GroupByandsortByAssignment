@@ -1,0 +1,21 @@
+package com.assignment1.repository;
+
+
+import com.assignment1.model.Dataset;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DatasetRepository extends JpaRepository<Dataset,Long> {
+	
+	Optional<Dataset> findBydatasetName(String datasetName);
+	
+	@Query("SELECT r.:queryBy FROM Dataset d JOIN d.records r WHERE d.datasetName = :name")
+	List<String> findByDatasetId(@Param("name") String name,@Param("queryBy") String queryBy);
+}

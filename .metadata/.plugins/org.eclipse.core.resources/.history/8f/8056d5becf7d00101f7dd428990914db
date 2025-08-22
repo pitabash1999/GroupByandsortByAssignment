@@ -1,0 +1,36 @@
+package com.assignment1.dto;
+
+
+
+
+
+public class SaveRecordRequest {
+
+    private String name;
+    private Integer age;
+    private String department;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getName() {
+        return name;
+    }
+}

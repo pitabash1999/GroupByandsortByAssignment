@@ -1,0 +1,69 @@
+package com.assignment1.service;
+
+
+
+
+@Service
+public class GroupbySortByMethodsImpl implements GroupbySortByMethods {
+	
+	@Autowired
+	private DatasetRepository datasetRepository;
+	@Autowired
+	private RecordRepository recordRepository;
+	
+	
+    @Override
+    public SavedResponseDto saveRecord(String dataset, SaveRecordRequest request)throws NoResourceFoundException {
+    	
+    	if("null".equals(dataset) || "null".equals(request)) {
+    		throw new IllegalArgumentException("NUll values are not accepted");
+    	}
+    	
+    	if(dataset.isEmpty()) {
+    		throw new EmptyDataSetException("Dataset can not be a empty");
+    	}
+    	
+    	try {
+    		
+    		Optional<Dataset> existingDataset=datasetRepository.findBydatasetName(dataset);
+        	
+        	if(existingDataset.isPresent()) {
+        		Record record=new Record();
+        		record.setName(request.getName());
+        		record.setAge(request.getAge());
+        		record.setDepartment(request.getDepartment());
+        		record.setDataset(existingDataset.get());
+        		Record savedRecord=recordRepository.save(record);
+        		
+        		return responseDto(savedRecord.getId(), dataset, ResponseMessage.SUCCESS.getMessage());
+        	}else {
+        		Dataset newDataset=new Dataset();
+        		newDataset.setDatasetName(dataset);
+        		Dataset savedDataset=datasetRepository.save(newDataset);
+        		Record record=new Record();
+        		record.setName(request.getName());
+        		record.setAge(request.getAge());
+        		record.setDepartment(request.getDepartment());;
+        		record.setDataset(savedDataset);
+        		Record savedRecord=recordRepository.save(record);
+        		
+        		return responseDto(savedRecord.getId(), dataset, ResponseMessage.SUCCESS.getMessage());
+        	}
+			
+		} catch (Exception e) {
+			throw new InternalError();
+		}
+    	
+    	
+    }
+    
+    private SavedResponseDto responseDto(Long recordId,String datasetName,String message) {
+    	
+    	return SavedResponseDto.builder()
+    			.message(message)
+    			.dataset(datasetName)
+    			.recordId(recordId)
+    			.build();
+    	
+    }
+}
